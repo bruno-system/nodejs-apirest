@@ -36,6 +36,7 @@ const updateUser = async (req, res) => {
   const updated = await model.User.update(data, { where: { id: id } });
   console.log(updated);
   const user = await model.User.findByPk(id);
+  user.password = "xxxxxxxxxxxx"
   return res.status(200).json({ user });
 };
 
