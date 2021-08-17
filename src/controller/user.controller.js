@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const getUsers = async (req, res) => {
   const users = await model.User.findAll({
+    attributes: ['id', 'firstName','lastName','email','updatedAt','createdAt'],
     include: [{ model: model.Task, attributes: ["id", "name"] }],
   });
   return res.status(200).json({ users });
@@ -27,6 +28,7 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
+  data.password = bcrypt.hashSync(data.password, 8)
   const updated = await model.User.update(data, { where: { id: id } });
   console.log(updated);
   const user = await model.User.findByPk(id);
