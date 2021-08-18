@@ -3,9 +3,11 @@ var cors = require('cors')
 const routerConfig = require("./routes/index.routes");
 require('dotenv').config()
 
+
 const PORT = process.env.PORT || 5000
 
 const configApi = (app) => {
+  app.use(express.static('public'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
